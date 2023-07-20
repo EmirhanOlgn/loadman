@@ -1,8 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
-import 'package:loadman/components/side_menu.dart';
 import 'package:provider/provider.dart';
-import 'dart:developer';
 
 void main() {
   runApp(MyApp());
@@ -16,12 +14,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
-        title: 'Namer App',
+        title: 'LoadMan',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
+          colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color.fromARGB(255, 255, 162, 133)),
         ),
-        home: const SideMenu(),
+        home: MyHomePage(),
       ),
     );
   }
@@ -43,7 +42,6 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
-    var pair = appState.current;
 
     IconData icon;
     icon = Icons.download;
