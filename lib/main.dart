@@ -1,5 +1,6 @@
 import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
+import 'package:loadman/components/side_menu.dart';
 import 'package:provider/provider.dart';
 import 'dart:developer';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
         ),
-        home: MyHomePage(),
+        home: const SideMenu(),
       ),
     );
   }
@@ -29,12 +30,12 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
 
-  void getNext() {
+  void download() {
     var x = 0;
-    for (var i = 0; i < 10000000000; i++) {
+    for (var i = 0; i < 10; i++) {
       x++;
     }
-    log('data: $x');
+    print(x.toString());
   }
 }
 
@@ -42,19 +43,32 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<MyAppState>();
+    var pair = appState.current;
+
+    IconData icon;
+    icon = Icons.download;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Text('A random idea:'),
-          Text(appState.current.asLowerCase),
-          ElevatedButton(
-            onPressed: () {
-              appState.getNext();
-            },
-            child: Text('Next'),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          children: [
+            Text('A random idea:'),
+            Text(appState.current.asLowerCase),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    appState.download();
+                  },
+                  icon: Icon(icon),
+                  label: Text('Download'),
+                ),
+                SizedBox(width: 10),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
